@@ -1,0 +1,41 @@
+observables:
+  adef: log1p_zscore
+  donor: rdef: log1p_zscore
+depth_def: rawsum
+mi:
+  estimator:
+    primary: knn
+    knn:
+      k: 10
+    estimator_sensitivity:
+      hist:
+        bins: 40
+  nulls:
+    B: 200
+    nullA: perm_free
+    nullB: perm_donor_block
+    nullC: downsampled_depth_match
+  hostile_controls:
+    depth_bins: 5
+state_def: celltype_or_kmeans
+  kmeans:
+    K: 10
+tda:
+  kde:
+    bandwidth: scott
+    grid: [150, 150]
+  ph:
+    density_method: cubical_superlevel
+    witness:
+      landmarks:
+        L: 1000
+      selection: maxmin
+    ph_max_dim: 1
+wasserstein:
+  p: 2
+robustness:
+  downsample_fractions: [1.0, 0.75, 0.5, 0.25]
+resources:
+  max_workers_default: 4
+  max_workers_tda: 2
+  mem_abort_gb: 35
